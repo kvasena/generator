@@ -1,0 +1,25 @@
+CREATE TABLE "category" (
+	"category_id" SERIAL PRIMARY KEY NOT NULL,
+	"category_created" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	"category_updated" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	"category_title" varchar(50) NOT NULL );
+CREATE OR REPLACE FUNCTION update() RETURNS TRIGGER AS
+	'BEGIN NEW.updated = NOW();
+	RETURN NEW; 
+	END;
+	'LANGUAGE 'plpgsql';
+CREATE TRIGGER update_trigger BEFORE UPDATE ON "category" FOR EACH ROW EXECUTE PROCEDURE update();
+
+CREATE TABLE "article" (
+	"article_id" SERIAL PRIMARY KEY NOT NULL,
+	"article_created" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	"article_updated" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	"article_text" text NOT NULL,
+	"article_title" varchar(50) NOT NULL );
+CREATE OR REPLACE FUNCTION update() RETURNS TRIGGER AS
+	'BEGIN NEW.updated = NOW();
+	RETURN NEW; 
+	END;
+	'LANGUAGE 'plpgsql';
+CREATE TRIGGER update_trigger BEFORE UPDATE ON "article" FOR EACH ROW EXECUTE PROCEDURE update();
+

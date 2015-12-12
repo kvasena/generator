@@ -9,7 +9,8 @@ class Statement:
         self.result = []
 
     def create_statement(self):
-        self.result.append("CREATE TABLE \"%s\" (\n\t\"%s_id\" SERIAL PRIMARY KEY NOT NULL,"%(table,column))
+        self.result.append("CREATE TABLE \"{table}\" (\n\t\"{table}_id\" "
+                           "SERIAL PRIMARY KEY NOT NULL,".format(table=self.table))
         self.result.append("\n\t\"{}_created\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,".format(self.table))
         self.result.append("\n\t\"{}_updated\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,".format(self.table))
 
